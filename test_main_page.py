@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 from pages.main_page import MainPage
+# from webdriver-manager.chrome import ChromeDriverManager
 
 
 def test_guest_can_go_to_login_page(browser):

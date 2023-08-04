@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
+from webdriver_manager.chrome import ChromeDriverManager
 
 # для корректного отображения кириллицы в параметризаторах
 def pytest_make_parametrize_id(config, val):
@@ -28,12 +29,12 @@ def browser(request):
         print("\nstart Сhrome browser for test..")
         options = Options()
         options.add_experimental_option('prefs', {'intl.accept_languages': language})
-        browser = webdriver.Chrome(options=options)
+        browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     elif browser_name == "firefox":
         print("\nstart Firefox browser for test..")
         options_firefox = OptionsFirefox()
         options_firefox.set_preference("intl.accept_languages", language)
-        browser = webdriver.Firefox(options=options_firefox)
+        browser = webdriver.Firefox(ChromeDriverManager().install(), options=options_firefox)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     yield browser
